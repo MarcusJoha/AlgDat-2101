@@ -18,10 +18,9 @@ public class Main {
         int runder = 0;
         double tid;
         Date slutt;
-
-        // Min kule metode!!
+        // Min exponent metode
         do {
-            exponent(2,10_000);
+            exponent(3,14);
             slutt = new Date();
             ++runder;
 
@@ -31,7 +30,7 @@ public class Main {
 
         // Java sin eksponent metode!!!
         do {
-            Math.pow(2,10_000);
+            Math.pow(3, 14);
             slutt = new Date();
             ++runder;
 
@@ -40,8 +39,9 @@ public class Main {
         System.out.println("Gjennomsnittlige millisekunder pr. runde: " + tid);
 
 
-        System.out.println("Exponent: " + exponent(2,4));
-        System.out.println("Hanoitime: " + hanoiTime(2,10));
+        System.out.println("Exponent: " + exponent(3,14)); // 1024.0
+        System.out.println("Exponent: " + exponent(2, 10)); // 4782969.0
+        System.out.println("Hanoitime: " + hanoiTime(2,4));
         // hanoi(3, a,b,c);
 /*
 Med 3 steg for hanoi
@@ -72,14 +72,15 @@ Med 3 steg for hanoi
         }
         // Partall
         if (n % 2 == 0) {
-            return x * hanoiTime(Math.pow(x, 2.0), (n)/2);
+            // -1 ???
+            return x * hanoiTime(x*x, (n-1)/2);
 
         // Oddetall
         } else {
-            return x * hanoiTime(Math.pow(x, 2.0), (n-1)/2);
+            // -2 ???
+            return x * hanoiTime(x*x, (n-2)/2);
         }
     }
-
 
     /*
      * Løsninger på oddetall/partall problemet er
@@ -87,6 +88,7 @@ Med 3 steg for hanoi
      * dreier seg om NÅR man kaller hanoi()
      * (Nice to know)
      */
+
     public static void hanoi(int n, char a, char b, char c) {
         System.out.println("Verdi n: " + n);
         if (n == 1) { // Vil aldri gå under 1 uansett (hvorfor < ??)
