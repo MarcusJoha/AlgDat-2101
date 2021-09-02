@@ -43,6 +43,7 @@ public class Main {
         System.out.println("Gjennomsnittlige millisekunder pr. runde: " + tid);
 
         /* Oppg 3, (16 GB med RAM skal nokk takle størrelsen på minnet)
+         * Se også lagt ved graf
          *
          * Tidsmålinger for antall prisforskjeller på aksjer:
          * 1000 = 0.27, 0.26, 0.26. Snitt = 0.26
@@ -75,6 +76,7 @@ public class Main {
 
          int[] stockprices = new int[stockChanges.length]; // 1 tilordninge, 1 oppslag: 2
 
+        // loop for å forandre prisendringer til akskjepriser basert på startpris for en aksje
         for (int i = 0; i < stockChanges.length; i++) { // 1 tilordning, n tester, n increment: 2n + 1
             int stockPrice = initilaStockPrice + stockChanges[i]; // n tilordning, n utregning, n tabelloppslag: 3n
             if (stockPrice < 0) { // n tester
@@ -92,11 +94,11 @@ public class Main {
                 // (intervallet til innerste loop blir mindre og mindre i dette tilfellet)
 
                 // lagrere differanse i gap slik at man slipper å regne det ut flere ganger
-                int gap = stockChanges[k] - stockChanges[i];           //  n tilordning, 2n tabelloppslag og n utregning: 4n
+                int gap = stockChanges[k] - stockChanges[i];               //  n tilordning, 2n tabelloppslag og n utregning: 4n
                 if (largestGap < gap && stockprices[i] < stockprices[k]) { // 3n sammenligninger + 2n tablelloppslag: 5n
-                    buyDay = i;                             // n tilordning
-                    sellDay = k;                            // n tilordninger
-                    largestGap = gap;                    // n tilordninger
+                    buyDay = i;                                            // n tilordning
+                    sellDay = k;                                           // n tilordninger
+                    largestGap = gap;                                      // n tilordninger
 
                     // sum fra innerste loop: 3n+4n+5n+3n = 15n
                 }
