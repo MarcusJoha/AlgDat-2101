@@ -12,13 +12,14 @@ import java.util.Timer;
 
 public class Main {
 
+    // todo: Testdata må si at det meste man kan tjene er 5
+
     public static void main(String[] args) {
         // test array som består av priser på forskjellige dager
         // i dette tilfellet vil det beste være å kjøpe på dag
         // 6 og selge på dag 7, forskjell vil da være 69
-        int[] stockPrices = {40, 65, 9, 2, 3, 1, 70, 10, 5};
+        int[] stockPrices = {-1,3,-9,2,2,-1,2,-1,-5};
         System.out.println(optimalStockTrade(stockPrices));
-
 
         int[] priceChanges = new int[1000];
         for (int i = 0; i < priceChanges.length ; i++) {
@@ -26,7 +27,6 @@ public class Main {
             // som består av tall mellom -300 og 800
             priceChanges[i] = generateRandomNumbers(-300, 800);
         }
-
 
         // Sjekker tiden for metoden
         Date start = new Date();
@@ -79,14 +79,18 @@ public class Main {
         // loop for å forandre prisendringer til akskjepriser basert på startpris for en aksje
         for (int i = 0; i < stockChanges.length; i++) { // 1 tilordning, n tester, n increment: 2n + 1
             int stockPrice = initilaStockPrice + stockChanges[i]; // n tilordning, n utregning, n tabelloppslag: 3n
-            if (stockPrice < 0) { // n tester
+            if (!(stockPrice < 0)) { // n tester
+                initilaStockPrice += stockChanges[i]; // n tilordning
+                stockprices[i] = initilaStockPrice;
+            } else {
                 initilaStockPrice = 0; // n tilordning
+                stockprices[i] = initilaStockPrice; // n tilordning, n tabelloppslag: 2n
             }
             // array som består av akjepriser
             stockprices[i] = stockPrice; // n tilordninger
         }
 
-        // Sum1 = = 4 + 2 + 2n + 1 + 6n = 8n + 7
+        // Sum1 = = 4 + 2 + 2n + 1 + 6n = 11n + 7
         
         for (int i = 0; i < stockprices.length; i++) {   // 1 tilordning, n test, n increments: 2n + 1
 
@@ -94,8 +98,8 @@ public class Main {
                 // (intervallet til innerste loop blir mindre og mindre i dette tilfellet)
 
                 // lagrere differanse i gap slik at man slipper å regne det ut flere ganger
-                int gap = stockChanges[k] - stockChanges[i];               //  n tilordning, 2n tabelloppslag og n utregning: 4n
-                if (largestGap < gap && stockprices[i] < stockprices[k]) { // 3n sammenligninger + 2n tablelloppslag: 5n
+                int gap = stockprices[k] - stockprices[i];               //  n tilordning, 2n tabelloppslag og n utregning: 4n
+                if (largestGap <= gap && stockprices[i] < stockprices[k]) { // 3n sammenligninger + 2n tablelloppslag: 5n
                     buyDay = i;                                            // n tilordning
                     sellDay = k;                                           // n tilordninger
                     largestGap = gap;                                      // n tilordninger
@@ -103,7 +107,6 @@ public class Main {
                     // sum fra innerste loop: 3n+4n+5n+3n = 15n
                 }
             }
-
         }
         // sum2 = (2n + 1) * 15n = 30n^2 + 15n
         return "Buy: " + (buyDay + 1) + ", sell:  " + (sellDay + 1) + "\nLargest gap: " + largestGap; // 1 return, 2 utregninger, sum: 3
@@ -111,7 +114,6 @@ public class Main {
         // Kjøretid utregning = sum1 + sum2 + return
         // (8n + 7) + (30n^2 + 15n) + 3
         // = 30n^2 + 23n + 10
-
     }
     /** Oppg 2
      * O(30n^2 + 23n + 10)
