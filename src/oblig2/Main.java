@@ -23,7 +23,7 @@ public class Main {
 
         int n = 100_000;
         /*
-        Tid for egen rekursiv eksponent metode
+        Tid for de forskjellige eksponent metodene
          */
         do {
             //exponent(1.001, n);
@@ -39,7 +39,7 @@ public class Main {
 
         // Test for å se om metoden (2.2-3) funker for alle verdier 0-10
         for (int i = 0; i < 11 ; i++) {
-            //System.out.println("2^"+ i + ": expo: " + expo(2, i));
+            System.out.println("2^"+ i + ": expo: " + expo(2, i));
         }
         System.out.println("2.2-3 expo(2,13): " + expo(2,13));
 
