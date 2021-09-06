@@ -21,7 +21,7 @@ public class Main {
         int[] stockPrices = {-1,3,-9,2,2,-1,2,-1,-5};
         System.out.println(optimalStockTrade(stockPrices));
 
-        int[] priceChanges = new int[1000];
+        int[] priceChanges = new int[20_000];
         for (int i = 0; i < priceChanges.length ; i++) {
             // array som representerer prisendringer med 100.000 elementer
             // som består av tall mellom -300 og 800
