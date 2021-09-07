@@ -43,7 +43,6 @@ public class Main {
         }
         System.out.println("2.2-3 expo(2,13): " + expo(2,13));
 
-
     }
 
     // Oppg 2.1-1
