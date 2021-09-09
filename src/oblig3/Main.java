@@ -3,10 +3,13 @@ package oblig3;
 public class Main {
     public static void main(String[] args) {
 
+        int[] array = {1,2,3,4,10,6,7,8,9,10};
+
         int[] ar = new int[100_000];
         for (int i = 0; i < ar.length ; i++) {
             ar[i] = generateRandomNumbers(-40_000,40_000);
         }
+
         quickSort(ar, 0, ar.length);
 
         for (int i = 0; i < ar.length; i++) {
@@ -17,20 +20,20 @@ public class Main {
     }
 
 
-
-
     public static void quickSort(int[] array, int start, int end) {
         int size = end-start;
         if (size < 2) {
             return;
         }
-        if (size < 3) {
-            return;
-        }
-        int pivot = split(array, start, end);
 
+        if (size == 4) {
+            // lager en annen sorterings metode her
+        }
+
+        int pivot = split(array, start, end);
         quickSort(array, start, pivot);
         quickSort(array, pivot + 1, end);
+
     }
 
     /*
@@ -44,7 +47,7 @@ public class Main {
         while (i < j) {
             // Decrement j (end)
             while (i < j && ar[--j] >= pivot);
-            if (i < j) { // sjekker om
+            if (i < j) {
                 ar[i] = ar[j];
             }
 
@@ -60,13 +63,13 @@ public class Main {
 
 
 
-    public static String isOrdered(int[] array) {
+    public static boolean isOrdered(int[] array) {
         for (int i = 0; i < array.length - 1 ; i++) {
             if (array[i] > array[i+1]) {
-                return (array[i] + " " + array[i+1]);
+                return false;
             }
         }
-        return null;
+        return true;
     }
 
 
