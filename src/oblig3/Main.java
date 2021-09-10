@@ -1,7 +1,9 @@
 package oblig3;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
 
@@ -10,12 +12,16 @@ public class Main {
         int[] array = {-1,-2,-3,-4,-5,-6, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         //bytt(array, 0, 4);
 
+        // liste som består a arrayer
+        List<int[]> unsortedArrays = new ArrayList<>();
 
-        // lager en liste med 1.000.000 elementer som
-        // består av tall mellom
-        int[] ar = new int[1_000_000];
-        for (int i = 0; i < ar.length; i++) {
-            ar[i] = generateRandomNumbers(-100_000, 100_000);
+        // liste på størrelse 10.000 som består av usorterte
+        // arrayer på størrelse 1.000.000
+        int[] usortert = new int[3_00_000];
+        for (int i = 0; i < 3_00_000; i++) {
+            // 10.000 elementer i listen
+            usortert[i] = generateRandomNumbers(-5000, 5000);
+            unsortedArrays.add(usortert);
         }
 
         // Tid ms for sorterings algoritmen
@@ -23,39 +29,47 @@ public class Main {
         int runder = 0;
         double tid;
         Date slutt;
+        int i = 0;
         do {
-            quickSortInsertionSort(ar, 0, ar.length-1);
+            // må fikse sånn at den ikke kaller masse sorterte tabeller
+            quickSortInsertionSort(unsortedArrays.get(i), 0, unsortedArrays.get(i).length - 1);
+            i++;
             // minQuickSort(ar, 0, ar.length);
             slutt = new Date();
             ++runder;
 
-        } while (slutt.getTime() - start.getTime() < 1000);
+        } while (i < 10_000); // kjører 10.000 runder med usortert tabell fra
         tid = (double) (slutt.getTime()- start.getTime())/runder;
         System.out.println("Gjennomsnittlige millisekunder pr. runde: " + tid);
 
         // true hvis sortert, false hvis ikke
-        System.out.println(isOrdered(ar));
+        System.out.println("Er list.get(2) ordered?: Svar: " + isOrdered(unsortedArrays.get(2)));
 
-
+        /**
+         *  Tidtakning for tabell som er sortert
+         */
         Date start1 = new Date();
         int runder1 = 0;
         double tid1;
         Date slutt1;
+        int y = 0;
         do {
             // sjekker tiden for en allerede sortert tabell
-            quickSortInsertionSort(ar, 0, ar.length-1);
+            // list.get(2) skal være sortert fra tidligere kall ovenfor
+            quickSortInsertionSort(unsortedArrays.get(2), 0, unsortedArrays.get(2).length - 1);
+            y++;
             // minQuickSort(ar, 0, ar.length);
             slutt1 = new Date();
             ++runder1;
 
-        } while (slutt1.getTime() - start1.getTime() < 1000);
+        } while (y < 10_000); // kjører 10.000 runder med sortert tabell
         tid1 = (double) (slutt1.getTime()- start1.getTime())/runder1;
         System.out.println("Gjennomsnittlige millisekunder pr. runde: " + tid1);
 
         // Sjekker at den sorterer riktig selv om den
         // er sortert fra før av
-        System.out.println(isOrdered(ar));
-        System.out.println(ar.length);
+        System.out.println(isOrdered(unsortedArrays.get(2)));
+        System.out.println("Og hvor mange elementer er det i listen: " + unsortedArrays.get(2).length);
     }
 
     public static void quickSortInsertionSort(int[] array, int start, int end) {
@@ -70,10 +84,7 @@ public class Main {
         }
     }
 
-    /**
-     *
-     * finner median i tabellen
-     */
+    // Finner median i tabellen
     public static int median3Sort(int[] ar, int start, int end) {
         int middle = (start + end) /2;
         if (ar[start] > ar[middle]) {
