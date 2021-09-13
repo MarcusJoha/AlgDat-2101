@@ -6,9 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Main {
-    // todo: må kjøre målinger igjen på det
-    //  må også analysere med tidskompleksitet
-    // også må jeg finne ut hva som skjer med 1.000.000
 
     public static void main(String[] args) {
 
@@ -41,19 +38,20 @@ public class Main {
 
 
         /*
-        Tidtakning for tabell som er usortert
+        Tidtakning
          */
         Date start = new Date();
         int runder = 0;
         double tid;
         Date slutt;
+        int sumFør = sjekkSum(unsortedArrays1.get(2));
         do {
             // bruker .get(i) som er O(n) men går greit
             // ettersom begge metodene bruker det.
             //quickSortInsertionSort(unsortedArrays1.get(runder), 0, unsortedArrays1.get(runder).length-1);
             quickSort(unsortedArrays1.get(runder), 0, unsortedArrays1.get(runder).length-1);
             slutt = new Date();
-            System.out.println(runder);
+            //System.out.println(runder);
             ++runder;
 
         } while (runder < 20); // kjører 20 runder med sortertinhg av usortert tabell
@@ -64,6 +62,10 @@ public class Main {
         System.out.println("Stikkprøve: Er list.get(2) ordered?: (burde være true) Svar: " + isOrdered(unsortedArrays1.get(2)));
         // Sjekker også at størrelsen på listen er 1.000.000
         System.out.println("Størrelse burde være 1.000.000: " + unsortedArrays1.get(2).length);
+        // sjekker at summen av elementene er det samme, bruker unsortedArrays.get(2) som stikkprøve
+        int sumEtter = sjekkSum(unsortedArrays1.get(2));
+        System.out.println("Sum av elementer før =  " + sumFør + ", etter = " + sumEtter);
+
     }
 
     /**
@@ -75,7 +77,6 @@ public class Main {
      * quicksort metdoe som bruker insertion sort som hjelpe metode
      * når størrelsen på del-arrayer blir mindre enn en viss størrelse
      */
-
     public static void quickSortInsertionSort(int[] array, int start, int end) {
         if (end - start > 100) { //
             //System.out.println("Nu bruker vi quicksort");
@@ -175,7 +176,7 @@ public class Main {
 
     /**
      *
-     * NEDENFOR:
+     * ============NEDENFOR================
      * koder som egentlig ikke er del av innlevering
      * prøvde litt andre versjoner enn det jeg fant i boken (Hafting og Ljosland)
      */
@@ -227,6 +228,14 @@ public class Main {
             }
         }
         return true;
+    }
+
+    public static int sjekkSum(int[] array) {
+        int sum = 0;
+        for (int i = 0; i < array.length ; i++) {
+            sum += array[i];
+        }
+        return sum;
     }
 
     // genererer random nummer mellom min og max
