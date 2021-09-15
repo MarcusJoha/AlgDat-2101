@@ -7,10 +7,12 @@ public class CircularList {
     private int size;
 
 
-    /*
-    Hvordan tar jeg og forandrer hvordan
+    /**
+     *
+     * @param prisoner
+     * legger til ny prisoner
+     * legge alltid bakerst slik at den blir tail.
      */
-
     public void addNode(Prisoner prisoner) {
         PrisonerNode newNode = new PrisonerNode(prisoner);
 
@@ -23,14 +25,6 @@ public class CircularList {
         tail.setNext(head); // tail peker tilbake til head
         size++; // øker størrelse med 1
     }
-    /*
-    Burde egentlig ha en meotde for å finne previous
-    eller kan jo lagre dette her når jeg itererr gjennom listen
-    hvordan sletter man en node i
-
-    todo: finn ut hvordan jeg henter ut den noden jeg skal slette
-
-    */
 
     /**
      *
@@ -73,7 +67,6 @@ public class CircularList {
                         return next;
                     }
 
-                    System.out.println("vi er her");
                   current.setNext(next.getNext());
                   size--;
                   return tail;
@@ -109,10 +102,4 @@ public class CircularList {
             System.out.println(prisoner.getPrisoner());
         }
     }
-
-    // todo: legger til prisoners til front. siste element sin next peker hele tiden til head
-    //  slik blir det en sirkulær liste.
-
-
-
 }
