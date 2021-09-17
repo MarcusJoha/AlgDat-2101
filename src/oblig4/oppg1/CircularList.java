@@ -1,4 +1,4 @@
-package oblig4;
+package oblig4.oppg1;
 
 public class CircularList {
 
@@ -32,15 +32,18 @@ public class CircularList {
      * @return slettet node
      * Sletter node i sirkulær liste basert på navn til Prisoner
      */
-    public PrisonerNode deleteNode(String name) { // forandrer den til å void???
-        Prisoner deletedPrisoner = new Prisoner(name);
-        PrisonerNode deletedNode = new PrisonerNode(deletedPrisoner);
-        PrisonerNode current = head;
-        PrisonerNode next;
+    public PrisonerNode deleteNode(String name) {
 
-        if (isEmpty()) { // hvis listen er tom
+        Prisoner deletedPrisoner = new Prisoner(name); // 1
+        PrisonerNode deletedNode = new PrisonerNode(deletedPrisoner); // 1
+        PrisonerNode current = head; // 1
+        PrisonerNode next; // 1
+
+        if (isEmpty()) { // hvis listen er tom. En sammenligning og return // 2
             return null;
         }
+        // sum = 5
+
         // Hvis det er head som skal slettes
         if (current.equals(deletedNode)) { // 1 kall, equals: 2
             next = current.getNext(); // 2
@@ -58,23 +61,30 @@ public class CircularList {
                 if (next.equals(deletedNode)) { // 2n ?
 
                     // hvis node som skal slettes er tail
-                    if (next.getPrisoner().equals(tail.getPrisoner())) { // 2n + 2n (equals)
-                        tail = current; // n
-                        tail.setNext(head); // n
-                        size--; // n
-                        return next; // n
+                    if (next.getPrisoner().equals(tail.getPrisoner())) { // 1 + 2 + 1 (Denne sammenligningen vil bare skje 1 gang)
+                        tail = current; // 1
+                        tail.setNext(head); // 1
+                        size--; // 1
+                        return next; // 1
 
-                        // sum: 8n
+                        // sum: 8
                     }
                     // Den som hoppes over tar java garbage collector seg av
-                    current.setNext(next.getNext());
-                    size--;
-                    return tail;
+                    // tidskompleksitet for java garbage collector??
+                    current.setNext(next.getNext()); // 2
+                    size--; // 1
+                    return tail; // 1
+                    // sum: 4
                 }
 
-            } while (!current.getPrisoner().equals(head.getPrisoner()));
+            } while (!current.getPrisoner().equals(head.getPrisoner())); // n + 2n + n
+            // sum while løkke: 4n
         }
-        return null;
+        return null; // 1
+        // værst tenkelig blir hvis man skal slette tail
+        // da må den loope gjennom hele listen og vi får en kjøretid på
+
+        // Sammenlagt: 10n + 15
     }
 
 

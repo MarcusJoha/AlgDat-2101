@@ -1,4 +1,4 @@
-package oblig4;
+package oblig4.oppg1;
 
 import java.util.Objects;
 

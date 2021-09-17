@@ -1,4 +1,4 @@
-package oblig4;
+package oblig4.oppg1;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ public class Main {
 
         CircularList prisoners = new CircularList();
 
-        fillData(prisoners, 30_000); // Antall fanger man vil ha
+        fillData(prisoners, 10); // Antall fanger man vil ha
 
         PrisonerNode vinner;
 
@@ -21,7 +21,7 @@ public class Main {
         double tid;
         Date slutt;
         do {
-            joesphus(prisoners);
+           vinner =  joesphus(prisoners);
             slutt = new Date();
             ++runder;
 
@@ -31,7 +31,7 @@ public class Main {
 
         System.out.println("Gjennomsnittlige millisekunder pr. runde: " + tid);
 
-        //System.out.println("vinner: " + vinner.getPrisoner().getName());
+        System.out.println("vinner: " + vinner.getPrisoner().getName());
         //System.out.println();
         //prisoners.printList();
 
@@ -52,19 +52,24 @@ public class Main {
       * @param prisonerList
      * @return liste av fanger. Består bare av 1 og det er vinneren
      */
-    public static PrisonerNode joesphus(CircularList prisonerList) {
-        PrisonerNode current = prisonerList.getHead();
-        int die = 1;
-        while (prisonerList.getSize() > 1) { // todo: fiks denne, henger seg opp for noen antall
-            current = current.getNext(); // increments current
-            die++;
-            if (die%4 == 0) {
-                prisonerList.deleteNode(current.getPrisoner().getName());
+    public static PrisonerNode joesphus(CircularList prisonerList) { // kan lage metoden void, får se senere
+        PrisonerNode current = prisonerList.getHead(); // 2
+        int die = 1; // 1
+        while (prisonerList.getSize() > 1) { // n get, n sammenligning: 2n
+            current = current.getNext(); // 2n,  increments current
+            die++; // n
+            if (die%4 == 0) { // 2n
+                prisonerList.deleteNode(current.getPrisoner().getName()); // n kall, 2n get * delete-metode. 3n * delete-metode
                 // Test for å se om rekkefølgen av de som dør stemmer med boken (10 fanger da)
-                // System.out.println("Hvem dør: " + current.getPrisoner().getName());
+                System.out.println("Hvem dør: " + current.getPrisoner().getName());
             }
         }
-        return prisonerList.getHead(); // Den som overlever.
+        return prisonerList.getHead(); // Den som overlever. 1 return
+
+        // sum: 3 + 7n + 3n*delete-method + 1
+        // 7n + 3n* (10n + 15) + 4
+        // 30n^2 + 52n + 4
+        // Tidskompleksitet O(n^2)
     }
 
     /**

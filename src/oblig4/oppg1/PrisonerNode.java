@@ -1,4 +1,4 @@
-package oblig4;
+package oblig4.oppg1;
 
 import java.util.Objects;
 
@@ -6,7 +6,6 @@ public class PrisonerNode {
 
     private Prisoner prisoner;
     private PrisonerNode next;
-    private PrisonerNode previous; // ikke sikkert jeg bruker denne
 
 
     public PrisonerNode(Prisoner prisoner) {
@@ -28,15 +27,6 @@ public class PrisonerNode {
     public void setNext(PrisonerNode next) {
         this.next = next;
     }
-
-    public PrisonerNode getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(PrisonerNode previous) {
-        this.previous = previous;
-    }
-
 
 
 
