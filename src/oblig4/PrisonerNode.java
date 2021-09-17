@@ -47,10 +47,11 @@ public class PrisonerNode {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PrisonerNode)) return false;
-        PrisonerNode that = (PrisonerNode) o;
-        return Objects.equals(prisoner, that.prisoner);
+        if (this == o) return true; // 2
+        if (!(o instanceof PrisonerNode)) return false; // 2
+        PrisonerNode that = (PrisonerNode) o; // 1
+        return Objects.equals(prisoner, that.prisoner); // 2
+        // returnerer max 2
     }
 
     @Override

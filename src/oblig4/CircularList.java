@@ -32,46 +32,47 @@ public class CircularList {
      * @return slettet node
      * Sletter node i sirkulær liste basert på navn til Prisoner
      */
-
-    public PrisonerNode deleteNode(String name) {
+    public PrisonerNode deleteNode(String name) { // forandrer den til å void???
         Prisoner deletedPrisoner = new Prisoner(name);
         PrisonerNode deletedNode = new PrisonerNode(deletedPrisoner);
         PrisonerNode current = head;
         PrisonerNode next;
 
-        if (isEmpty()) {
+        if (isEmpty()) { // hvis listen er tom
             return null;
         }
         // Hvis det er head som skal slettes
-        if (current.equals(deletedNode)) {
-            next = current.getNext();
-            head = next;
-            tail.setNext(head);
+        if (current.equals(deletedNode)) { // 1 kall, equals: 2
+            next = current.getNext(); // 2
+            head = next; // 1
+            tail.setNext(head); // 1
+            size--; // 1
+            return current; // 1
 
-            size--;
-            return current;
+            // sum 9
 
         } else {
-            current = current.getNext();
-            while (!current.getPrisoner().equals(head.getPrisoner())) {
-                //previous = current;
-                current = current.getNext();
-                next = current.getNext();
+            do {
+                current = current.getNext(); // 2n
+                next = current.getNext(); // 2n
+                if (next.equals(deletedNode)) { // 2n ?
 
-                if (next.equals(deletedNode)) { // java garbage collector
                     // hvis node som skal slettes er tail
-                    if (next.getPrisoner().equals(tail.getPrisoner())) {
-                        tail = current;
-                        tail.setNext(head);
-                        size--;
-                        return next;
-                    }
+                    if (next.getPrisoner().equals(tail.getPrisoner())) { // 2n + 2n (equals)
+                        tail = current; // n
+                        tail.setNext(head); // n
+                        size--; // n
+                        return next; // n
 
-                  current.setNext(next.getNext());
-                  size--;
-                  return tail;
+                        // sum: 8n
+                    }
+                    // Den som hoppes over tar java garbage collector seg av
+                    current.setNext(next.getNext());
+                    size--;
+                    return tail;
                 }
-            }
+
+            } while (!current.getPrisoner().equals(head.getPrisoner()));
         }
         return null;
     }
