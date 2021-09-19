@@ -36,7 +36,6 @@ public class Main {
         //prisoners.printList();
 
 
-
         /*
         // Test for å se om prisoners faktisk er en sirkulær liste
         PrisonerNode yo = prisoners.getHead();
