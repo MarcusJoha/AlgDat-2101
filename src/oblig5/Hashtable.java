@@ -1,14 +1,22 @@
 package oblig5;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class Hashtable {
 
     final int A = 1327217885;
-    static int collisions = 0;
+    private int collisions = 0;
     private int numberOfElements;
     int hashTableLength;
+    private ArrayList<String> students;
 
 
     private LinkedList<String>[] hashtable;
@@ -22,6 +30,19 @@ public class Hashtable {
         return hashtable;
     }
 
+    public int sizeOfArListStudents() {
+        return students.size();
+    }
+
+    public int getNumberOfElements() {
+        return numberOfElements;
+    }
+
+    /**
+     *
+     * @param capacity
+     * konstruktør hvor man bestemmer selv hvor mange elementer man vil ha
+     */
     public Hashtable(int capacity) {
         this.numberOfElements = 0;
         this.hashtable = new LinkedList[capacity];
@@ -31,9 +52,47 @@ public class Hashtable {
         this.hashTableLength = hashtable.length;
     }
 
-    // returns the index of
+    /**
+     *
+     * @param filePath
+     * konstrukør som leser fra fil
+     * initialsierer størrelse på hashtable utifra antall elementer i fil
+     * kan velge meollom to put metoder i hash-tabellen
+     */
+    public Hashtable(String filePath) {
+        this.collisions = 0;
+        this.numberOfElements = 0;
+        this.students = new ArrayList<>();
+        try {
+            readFromFile(filePath);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        this.hashtable = new LinkedList[(int)(students.size() * 1.25)];
+        for (int i = 0; i < hashtable.length; i++) {
+            hashtable[i] = new LinkedList<>(); // fyller opp array med linked list
+        }
+        for (String stud: students) {
+            //put(stud); // får hver sin index, men kollisjoner
+            annenPut(stud); // på samme index, viktig med spredning
+        }
+        this.hashTableLength = hashtable.length;
+    }
+
+
+    /**
+     *
+     * @param student
+     * @return index for student
+     * fungerer egentlig bare når man har
+     * brukt annenPut() metoden
+     */
     public int getIndexOf(String student) {
         return hashCode(student, hashTableLength);
+    }
+
+    public int getCollisions() {
+        return collisions;
     }
 
     public String getStudent(String student) {
@@ -49,20 +108,13 @@ public class Hashtable {
         return null;
     }
 
-
-
-    /*
-    todo: problemet nu er at jeg ikke får assosiert hashverdi med key
-        , gjør at jeg ikke kan hente ut person utifra nøkkel
-    må nesten lage en klasse som fikser problemet med at nøkkel blir knyttet
-    opp mot en tekst string.
-     */
-
-
+    // todo: får ikke lagret ny nøkkelverdi med min implementasjon
+    //  når probing blir kalt
+    //  fordi nøkkel bestemmes av hash funksjonen min.
+    //annenPut() har ikke dette problemet
     public int put(String student) {
         int m = hashtable.length;
         int key = hashCode(student, m);
-
         for (int i = 0; i < m ; i++) {
             int index = probe(key, i, m); // exponential probing
             ListIterator<String> iterator = hashtable[index].listIterator();
@@ -76,14 +128,22 @@ public class Hashtable {
     }
 
 
-    // Vet ikke om put-metoden min var helt riktig
+    /**
+     * (Vet ikke dette er riktig måte å gjøre oppgaven på)
+     * @param student
+     * @return index til student den blir lagt i
+     * Vet ikke noe om kollisjoner, bruker jo addLast()-metode
+     */
     public int annenPut(String student) {
         int m = hashtable.length;
         int key = hashCode(student, m); // viktig at denne blir jevnt fordelt
         ListIterator<String> iterator = hashtable[key].listIterator();
-        String stud = "";
-        // Bryter ut av while, betyr neste er ledig
-        hashtable[key].addLast(student); // ingen kollisjoner fordi den legge sist
+
+        while (iterator.hasNext()) { // for å telle antall kollisjoner
+            iterator.next();
+            collisions++;
+        }
+        hashtable[key].addLast(student); // får man egentlig kollisjoner med addLast() ??
         numberOfElements++;
         return key;
     }
@@ -92,7 +152,21 @@ public class Hashtable {
         return (double) numberOfElements/ (double) hashTableLength;
     }
 
-
+    public void readFromFile(String filename) throws IOException {
+        BufferedReader b = new BufferedReader(new FileReader(new File(filename)));
+        String student;
+        try {
+            while((student = b.readLine()) != null ){
+                students.add(student);
+            }
+        } catch (FileNotFoundException fnf) {
+            fnf.printStackTrace();
+        } finally {
+            if (b != null) {
+                b.close();
+            }
+        }
+    }
 
 
     public int probe(int hashed, int i, int size) {
@@ -143,6 +217,7 @@ public class Hashtable {
             }
         }
     }
+
 
     // trur ikke jeg skal bruke denne
     static class Student {
