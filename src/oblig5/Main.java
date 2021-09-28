@@ -15,11 +15,15 @@ public class Main {
 
         studenHashTable.printChainedHashtable();
         System.out.println();
-        System.out.println("Last faktor: " + studenHashTable.lastFaktor());
         System.out.println("Antall studender: " + studenHashTable.getNumberOfElements());
-        System.out.println("Størrelse på arraylist studender fra fil blir lagt inn i: " + studenHashTable.sizeOfArListStudents());
+        System.out.println("Størrelse på arraylist studender som leses fra fil (skal være lik ant.studender): " + studenHashTable.sizeOfArListStudents());
         System.out.println("Kollisjoner: " + studenHashTable.getCollisions());
+        System.out.println("Last faktor: " + studenHashTable.lastFaktor());
+        System.out.println("Kollisjoner per stud =  " + studenHashTable.collisonsPerStud() + " (ikke over 0.4)");
 
+        // oppslag er case sensitiv
+        System.out.println("Oppslag: " + studenHashTable.getStudent("Marcus Johannessen") +
+                "\nIndex Marcus Johannessen: " + studenHashTable.getIndexOf("Marcus Johannessen"));
 
     }
 }

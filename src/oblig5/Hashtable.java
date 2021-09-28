@@ -152,6 +152,19 @@ public class Hashtable {
         return (double) numberOfElements/ (double) hashTableLength;
     }
 
+    public double collisonsPerStud() {
+        return (double) collisions/ (double) numberOfElements;
+    }
+
+
+    /**
+     *
+     * @param filename
+     * @throws IOException
+     * Metode som leser fra fil
+     * leser linje for linje.
+     */
+
     public void readFromFile(String filename) throws IOException {
         BufferedReader b = new BufferedReader(new FileReader(new File(filename)));
         String student;
