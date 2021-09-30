@@ -1,8 +1,4 @@
-package oblig5;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+package oblig5.oppg1;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +7,7 @@ public class Main {
         //Hashtable tb = new Hashtable(15); // må se litt mer må hash funksjon
 
 
-        Hashtable studenHashTable = new Hashtable("src/oblig5/students.txt"); // løsninger på lesing av fil
+        ChainedHashTable studenHashTable = new ChainedHashTable("src/oblig5/oppg1/students.txt"); // løsninger på lesing av fil
 
         studenHashTable.printChainedHashtable();
         System.out.println();
@@ -24,6 +20,12 @@ public class Main {
         // oppslag er case sensitiv
         System.out.println("Oppslag: " + studenHashTable.getStudent("Marcus Johannessen") +
                 "\nIndex Marcus Johannessen: " + studenHashTable.getIndexOf("Marcus Johannessen"));
+
+
+        /*
+        Fra deg jeg ser på utskrift av studender er det max 3 studender som står på samme index
+        Skal prøve litt andre hashfunksjoner for å se om spredning blir bedre
+         */
 
     }
 }

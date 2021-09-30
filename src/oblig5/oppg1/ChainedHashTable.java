@@ -1,4 +1,4 @@
-package oblig5;
+package oblig5.oppg1;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,17 +6,24 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public class Hashtable {
+public class ChainedHashTable {
+
+    /*
+    Bruker nøkkel som tabellindeks
+    trur det skal gå greit her.
+    Todo: finn ut av det
+     */
 
     final int A = 1327217885;
     private int collisions = 0;
     private int numberOfElements;
     int hashTableLength;
     private ArrayList<String> students;
+
+
 
 
     private LinkedList<String>[] hashtable;
@@ -43,7 +50,7 @@ public class Hashtable {
      * @param capacity
      * konstruktør hvor man bestemmer selv hvor mange elementer man vil ha
      */
-    public Hashtable(int capacity) {
+    public ChainedHashTable(int capacity) {
         this.numberOfElements = 0;
         this.hashtable = new LinkedList[capacity];
         for (int i = 0; i < hashtable.length; i++) {
@@ -59,7 +66,7 @@ public class Hashtable {
      * initialsierer størrelse på hashtable utifra antall elementer i fil
      * kan velge meollom to put metoder i hash-tabellen
      */
-    public Hashtable(String filePath) {
+    public ChainedHashTable(String filePath) {
         this.collisions = 0;
         this.numberOfElements = 0;
         this.students = new ArrayList<>();
@@ -127,7 +134,6 @@ public class Hashtable {
         return -1; // full
     }
 
-
     /**
      * (Vet ikke dette er riktig måte å gjøre oppgaven på)
      * @param student
@@ -147,6 +153,7 @@ public class Hashtable {
         numberOfElements++;
         return key;
     }
+
 
     public double lastFaktor() {
         return (double) numberOfElements/ (double) hashTableLength;
