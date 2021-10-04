@@ -28,7 +28,8 @@ public class HashTable {
         return (k%(m-1)) + 1;
     }
 
-    // henrik sin metode
+
+    // Henrik sin røyk hash metode
     public int h1(int tall, int tableLength) {
         // legger til 1 slik at hashverdi ikke kan bli 0, ødelegger metode for doublehashProbing
         return (int) (tableLength * (AA * tall - (int) (AA * tall))) % tableLength + 1;
@@ -45,16 +46,12 @@ public class HashTable {
         return (int) (k * A >> (32-x));
     }
 
-    public int linearProbing(int h, int i, int m) {
-        return (h + i) % m;
-    }
 
     /**
-     * Inner class Linear probing
+     * Inner class for linear probing
      */
     static class LinearProbing extends HashTable {
         private int collisions;
-
 
         public LinearProbing(int[] hashTable) {
             super(hashTable);
@@ -67,6 +64,10 @@ public class HashTable {
 
         public int getCollisions() {
             return collisions;
+        }
+
+        public int linearProbing(int h, int i, int m) {
+            return (h + i) % m;
         }
 
         // put metode ved bruk av linær probing
@@ -150,7 +151,7 @@ public class HashTable {
 
 
     /**
-     * Inner class for hashtable
+     * Inner class for dobbelhash probing
      */
     static class DobbelHash extends HashTable {
         private int collisions;
@@ -177,11 +178,11 @@ public class HashTable {
         // put metode ved bruk av dobbelhash probing
         public int put(int k, int[] hashTable) {
             int m = hashTable.length;
-            int hash1 = divHash(k, m); // todo: sjekke ut java sin hashfunksjon
+            int hash1 = divHash(k, m); // hashvalue based on modulo
             int j; // so that I can return value
             if (hashTable[hash1] == 0) { // hvis ledig
                 hashTable[hash1] = k; // leg til element
-                return hash1;
+                return hash1; // trenger ikke regne ut 2. hashverdi som er nice
 
             } else { // hvis ikke ledig løser med probing
                 collisions++;

@@ -12,6 +12,15 @@ public class Main {
         // random array of 10.000.000 numbers (shuffeled)
         int[] randomTable = generateRandTabell(10_000_000);
 
+        /*
+        Todo: fra oppg...3 typer dobbel hashing??!
+        trenger ikke å sjekke om alle elementene legges i hashtabell
+        hadde det ikke vært tilfellet ville put metoden aldri brutt ut av while-løkka :)
+         */
+
+        // TODO: Sjekke om optimale størrelser for hashtable når 10.000.000 elementer skal puttes in
+        // primtall/ 2'er potens lengde??
+
         int[] hashtable1 = new int[intSize + 7]; // linear probing
         int[] hashtable2 = new int[intSize + 7]; // quadratic probing
         int[] hashtable3 = new int[intSize + 7]; // dobbel hash
@@ -88,6 +97,7 @@ public class Main {
         int result = 0;
         int[] randTable = new int[capacity];
         Random rand = new Random();
+        // unike randome tall i stigende rekkefølge
         for (int i = 0; i < randTable.length; i++) {
             result += rand.nextInt(50) + 1;
             randTable[i] = result;
