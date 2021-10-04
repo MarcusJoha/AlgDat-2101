@@ -4,6 +4,7 @@ public class HashTable {
 
     //private final int A = (Math.sqrt(5) - 1)/2;
     private static final long A = 2654435769L; // fra boken, 32-bitts prosessor
+    private static final double AA = (Math.sqrt(5)-1)/2;
     private int[] hashTable;
     private int x;
 
@@ -27,6 +28,11 @@ public class HashTable {
         return (k%(m-1)) + 1;
     }
 
+    // henrik sin metode
+    public int h1(int tall, int tableLength) {
+        return (int) (tableLength * (AA * tall - (int) (AA * tall))) % tableLength;
+    }
+
     /**
      *
      * @param k
@@ -35,15 +41,12 @@ public class HashTable {
      * x - slik at vi får nærmeste 2'er potens
      */
     public int multHash(int k, int x) {
-        //int A = (int)(0.5*Math.pow(2.0, 32.0)*(Math.sqrt(5) - 1));
         return (int) (k * A >> (32-x));
     }
 
     public int linearProbing(int h, int i, int m) {
         return (h + i) % m;
     }
-
-
 
     /**
      * Inner class Linear probing
@@ -182,7 +185,7 @@ public class HashTable {
 
             } else { // hvis ikke ledig løser med probing
                 collisions++;
-                int hash2 = divHash(k, m);
+                int hash2 = h1(k, m); // h1 - multiplication hashfunction
                 int i = 0;
                 while (true) {
                     j = doubleHashProbing(hash1, hash2, i, m);

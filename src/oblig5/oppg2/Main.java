@@ -9,11 +9,11 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
 
-        double size = 1000 * 1.3;
+        double size = 10_000_000 * 1.3;
         int intSize = (int) size;
 
         // random array of numbers (shuffeled)
-        int[] randomTable = generateRandTabell(1000);
+        int[] randomTable = generateRandTabell(10_000_000);
 
         int[] hashtable1 = new int[intSize+7]; // linear probing
         int[] hashtable2 = new int[intSize+7]; // quadratic probing
