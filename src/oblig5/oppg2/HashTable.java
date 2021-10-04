@@ -30,7 +30,8 @@ public class HashTable {
 
     // henrik sin metode
     public int h1(int tall, int tableLength) {
-        return (int) (tableLength * (AA * tall - (int) (AA * tall))) % tableLength;
+        // legger til 1 slik at hashverdi ikke kan bli 0, ødelegger metode for doublehashProbing
+        return (int) (tableLength * (AA * tall - (int) (AA * tall))) % tableLength + 1;
     }
 
     /**
@@ -124,7 +125,6 @@ public class HashTable {
         // put-method for quadratic probing
         public int put(int k, int[] hashTable) {
             int m = hashTable.length;
-            // todo: bruke java sin hashfunksjon
             int hashVal1 = divHash(k, m);
             int j; // so that I can return value
             if (hashTable[hashVal1] == 0) { // hvis ledig
@@ -169,7 +169,7 @@ public class HashTable {
             return collisions;
         }
 
-        // hash-funksjon
+        // probe funksjon som bruker to hashverdier
         public int doubleHashProbing(int h1, int h2, int i, int hashtableLength) {
             return (h1 + i*h2) % hashtableLength;
         }
@@ -201,39 +201,4 @@ public class HashTable {
             return j;
         }
     }
-
 }
-
-/* Notater til oppgave, forelesning og bok
-
-k - verdier?? hva skal k1 og k2 være??
-
-
-
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
