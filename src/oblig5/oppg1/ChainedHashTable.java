@@ -25,7 +25,6 @@ public class ChainedHashTable {
 
 
 
-
     private LinkedList<String>[] hashtable;
 
     /*
@@ -144,7 +143,6 @@ public class ChainedHashTable {
         int m = hashtable.length;
         int key = hashCode(student, m); // viktig at denne blir jevnt fordelt
         ListIterator<String> iterator = hashtable[key].listIterator();
-
         while (iterator.hasNext()) { // for å telle antall kollisjoner
             iterator.next();
             collisions++;
