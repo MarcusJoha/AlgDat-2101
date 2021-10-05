@@ -9,22 +9,20 @@ public class Main {
         double size = 10_000_000 * 1.3;
         int intSize = (int) size;
 
-        // random array of 10.000.000 numbers (shuffeled)
-        int[] randomTable = generateRandTabell(10_000_000);
+        int fyllinsGrad50 = 6_500_013;
+        int fyllinsGrad80 = 10_400_021;
+        int fyllinsGrad90 = 11_700_024;
+        int fyllinsGrad99 = 12_870_027;
+        int fyllinsGrad100 = 13_000_027;
 
-        /*
-        Todo: fra oppg...3 typer dobbel hashing??!
-        trenger ikke å sjekke om alle elementene legges i hashtabell
-        hadde det ikke vært tilfellet ville put metoden aldri brutt ut av while-løkka :)
-        todo: løse probelemet for indexOutOfBond når 'i' i dobbelhashprobing blir for stor
-         */
 
-        // TODO: Sjekke om optimale størrelser for hashtable når 10.000.000 elementer skal puttes in
-        // primtall/ 2'er potens lengde??
+        int[] randomTable = generateRandTabell(fyllinsGrad99);
 
-        int[] hashtable1 = new int[intSize + 7]; // linear probing
-        int[] hashtable2 = new int[intSize + 7]; // quadratic probing
-        int[] hashtable3 = new int[intSize + 7]; // dobbel hash
+
+        // 13.000.027: nærmeste primtall slik at man også har ledig plass for å redusere kollisjoner
+        int[] hashtable1 = new int[13_000_027 + 1]; // linear probing,
+        int[] hashtable2 = new int[13_000_027 + 1]; // quadratic probing
+        int[] hashtable3 = new int[13_000_027 + 1]; // dobbel hash
 
         HashTable.LinearProbing linearProbing = new HashTable.LinearProbing(hashtable1);
         HashTable.QuadraticProbing quadraticProbing = new HashTable.QuadraticProbing(hashtable2);
@@ -34,6 +32,7 @@ public class Main {
         System.out.println("Lengde for linear probing hashtable: " + linearProbing.getHashTable().length);
         System.out.println("Lengde for quadratic probing: " + quadraticProbing.getHashTable().length);
         System.out.println();
+
 
         int[] linHashTable = linearProbing.getHashTable();
         int[] quadraticHashTable = quadraticProbing.getHashTable();
