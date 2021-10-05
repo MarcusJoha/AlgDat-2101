@@ -16,6 +16,7 @@ public class Main {
         Todo: fra oppg...3 typer dobbel hashing??!
         trenger ikke å sjekke om alle elementene legges i hashtabell
         hadde det ikke vært tilfellet ville put metoden aldri brutt ut av while-løkka :)
+        todo: løse probelemet for indexOutOfBond når 'i' i dobbelhashprobing blir for stor
          */
 
         // TODO: Sjekke om optimale størrelser for hashtable når 10.000.000 elementer skal puttes in

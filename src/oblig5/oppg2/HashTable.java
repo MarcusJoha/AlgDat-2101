@@ -155,7 +155,6 @@ public class HashTable {
      */
     static class DobbelHash extends HashTable {
         private int collisions;
-        private int[] hashTable;
 
         public DobbelHash(int[] hashTable) {
             super(hashTable);
@@ -182,7 +181,7 @@ public class HashTable {
             int j; // so that I can return value
             if (hashTable[hash1] == 0) { // hvis ledig
                 hashTable[hash1] = k; // leg til element
-                return hash1; // trenger ikke regne ut 2. hashverdi som er nice
+                return hash1; // trenger ikke regne ut 2.hashverdi som er nice
 
             } else { // hvis ikke ledig løser med probing
                 collisions++;
