@@ -35,17 +35,6 @@ public class HashTable {
         return (int) (tableLength * (AA * tall - (int) (AA * tall))) % tableLength + 1;
     }
 
-    /**
-     *
-     * @param k
-     * @return hash verdi
-     * A som ligger mellom 0 og 1 ganges med 2^x
-     * x - slik at vi får nærmeste 2'er potens
-     */
-    public int multHash(int k, int x) {
-        return (int) (k * A >> (32-x));
-    }
-
 
     /**
      * Inner class for linear probing
@@ -171,6 +160,7 @@ public class HashTable {
 
         // probe funksjon som bruker to hashverdier
         public int doubleHashProbing(int h1, int h2, int i, int hashtableLength) {
+
             return (h1 + i*h2) % hashtableLength;
         }
 
@@ -186,10 +176,10 @@ public class HashTable {
             } else { // hvis ikke ledig løser med probing
                 collisions++;
                 int hash2 = h1(k, m); // h1 - multiplication hashfunction
-                int i = 0;
+                int i = 1;
                 while (true) {
                     j = doubleHashProbing(hash1, hash2, i, m);
-                    //System.out.println(j);
+                    j = Math.abs(j); // for ikke negativ verdi
                     if (hashTable[j] == 0) { // found free spot
                         hashTable[j] = k;
                         break; // break out of loop

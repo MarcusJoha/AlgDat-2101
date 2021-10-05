@@ -13,16 +13,16 @@ public class Main {
         int fyllinsGrad80 = 10_400_021;
         int fyllinsGrad90 = 11_700_024;
         int fyllinsGrad99 = 12_870_027;
-        int fyllinsGrad100 = 13_000_027;
+        int fyllinsGrad100 = 13_000_027 - 1; // fordi man ikke kan plassere på index 0
 
 
-        int[] randomTable = generateRandTabell(fyllinsGrad99);
+        int[] randomTable = generateRandTabell(fyllinsGrad50);
 
 
         // 13.000.027: nærmeste primtall slik at man også har ledig plass for å redusere kollisjoner
-        int[] hashtable1 = new int[13_000_027 + 1]; // linear probing,
-        int[] hashtable2 = new int[13_000_027 + 1]; // quadratic probing
-        int[] hashtable3 = new int[13_000_027 + 1]; // dobbel hash
+        int[] hashtable1 = new int[13_000_027]; // linear probing,
+        int[] hashtable2 = new int[13_000_027]; // quadratic probing
+        int[] hashtable3 = new int[13_000_027]; // dobbel hash
 
         HashTable.LinearProbing linearProbing = new HashTable.LinearProbing(hashtable1);
         HashTable.QuadraticProbing quadraticProbing = new HashTable.QuadraticProbing(hashtable2);
@@ -47,12 +47,10 @@ public class Main {
         for (int i = 0; i < randomTable.length; i++) {
             linearProbing.put(randomTable[i], linHashTable);
         }
-
         slutt = new Date();
-
         tid = (double) (slutt.getTime() - start.getTime());
         System.out.println("Linear probing millisekunder pr. runde: " + tid);
-
+        // Antall kollisjoner for linær probing
         System.out.println("Collisions linear probing: " + linearProbing.getCollisions() + "\n");
 
 
@@ -71,6 +69,7 @@ public class Main {
         System.out.println("Quadratic probing millisekunder pr. runde: " + tid1);
         // Antall kollisjoner for quadratic probing
         System.out.println("Collisions quadratic probing: " + quadraticProbing.getCollisions() + "\n");
+
 
 
         /*
