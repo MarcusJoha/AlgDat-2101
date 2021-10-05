@@ -1,4 +1,4 @@
-package oblig5.oppg2;
+package oppg2;
 
 
 import java.util.*;
@@ -16,7 +16,7 @@ public class Main {
         int fyllinsGrad100 = 13_000_027;
 
 
-        int[] randomTable = generateRandTabell(fyllinsGrad99);
+        int[] randomTable = generateRandTabell(fyllinsGrad50);
 
 
         // 13.000.027: nærmeste primtall slik at man også har ledig plass for å redusere kollisjoner
@@ -24,9 +24,10 @@ public class Main {
         int[] hashtable2 = new int[13_000_027 + 1]; // quadratic probing
         int[] hashtable3 = new int[13_000_027 + 1]; // dobbel hash
 
-        HashTable.LinearProbing linearProbing = new HashTable.LinearProbing(hashtable1);
-        HashTable.QuadraticProbing quadraticProbing = new HashTable.QuadraticProbing(hashtable2);
-        HashTable.DobbelHash dobbelHash = new HashTable.DobbelHash(hashtable3);
+
+        LinearProbing linearProbing = new LinearProbing(hashtable1);
+        QuadraticProbing quadraticProbing = new QuadraticProbing(hashtable2);
+        DobbelHash dobbelHash = new DobbelHash(hashtable3);
 
         System.out.println("randtable lengde: " + randomTable.length);
         System.out.println("Lengde for linear probing hashtable: " + linearProbing.getHashTable().length);
@@ -41,6 +42,7 @@ public class Main {
         /*
         Tidtakning for linear probing
          */
+
         Date start = new Date();
         double tid;
         Date slutt;
@@ -53,12 +55,14 @@ public class Main {
         tid = (double) (slutt.getTime() - start.getTime());
         System.out.println("Linear probing millisekunder pr. runde: " + tid);
 
-        System.out.println("Collisions linear probing: " + linearProbing.getCollisions() + "\n");
+        System.out.println("Collisions linear probing: " + linearProbing
+        .getCollisions() + "\n");
 
 
         /*
         tidtakning for quadratic probing
-         */
+        */
+
         Date start1 = new Date();
         double tid1;
         Date slutt1;
@@ -76,6 +80,7 @@ public class Main {
         /*
         Tidtakning for dobbelhash probing
          */
+
         Date start2 = new Date();
         double tid2;
         Date slutt2;
@@ -86,7 +91,9 @@ public class Main {
         tid2 = (double) (slutt2.getTime() - start2.getTime());
         System.out.println("dobbelhash probing millisekunder pr. runde: " + tid2);
         // Antall kollisjoner for dobbel hash probing
-        System.out.println("Collisions dobbelhash probing: " + dobbelHash.getCollisions());
+        System.out.println("Collisions dobbelhash probing: " + dobbelHash
+        .getCollisions());
+
     }
 
     /**
