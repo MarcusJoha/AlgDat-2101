@@ -1,3 +1,5 @@
+package oblig6;
+
 import java.io.IOException;
 
 public class Client {

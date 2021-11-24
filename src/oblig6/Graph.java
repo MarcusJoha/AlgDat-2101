@@ -1,3 +1,5 @@
+package oblig6;
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.StringTokenizer;

@@ -1,3 +1,5 @@
+package oblig6;
+
 import java.util.ArrayList;
 
 public class Node {

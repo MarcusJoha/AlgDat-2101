@@ -1,4 +1,5 @@
 .idea
+src/.idea
 *.iml
 .DS_Store
 src/oblig9/Files

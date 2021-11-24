@@ -1,3 +1,5 @@
+package oblig6;
+
 public class Edge {
     Node from;
     Node to;
